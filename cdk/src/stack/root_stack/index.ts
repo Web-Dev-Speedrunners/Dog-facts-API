@@ -7,17 +7,27 @@ import {
   Code, Function, IFunction, Runtime,
 } from '@aws-cdk/aws-lambda';
 import * as cdk from '@aws-cdk/core';
+import { StackProps } from '@aws-cdk/core';
+import { APP_NAME } from '../../constant/app';
+import AppStage from '../../constant/app_stage';
+
+export interface RootStackProps extends StackProps {
+  stage: AppStage;
+}
 
 export default class RootStack extends cdk.Stack {
   public api : RestApi
 
   public apiHandler: IFunction
 
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  public stage: AppStage;
+
+  constructor(scope: cdk.Construct, id: string, props: RootStackProps) {
     super(scope, id, props);
+    this.stage = props.stage;
     const resourceNames = {
-      apiGateway: this.resName('DogFactAPIGateway'),
-      apiHandlerLambda: this.resName('DogFactAPIGatewayLambdaHandler'),
+      apiGateway: this.resName('APIGateway'),
+      apiHandlerLambda: this.resName('LambdaHandler'),
     };
 
     this.apiHandler = new Function(this, resourceNames.apiHandlerLambda, {
@@ -38,5 +48,5 @@ export default class RootStack extends cdk.Stack {
     });
   }
 
-  private resName = (res: string) : string => res
+  private resName = (res: string) : string => `${APP_NAME}-${res}-${this.stage}`
 }
