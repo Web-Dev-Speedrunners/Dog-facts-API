@@ -28,4 +28,9 @@
 #### How to Deploy
 
 1. Navigate to `cdk` directory
-2. Run `yarn run deploy`
+2. **First Deployment Only** Bootstrap your AWS Account: `cdk bootstrap`
+3. Run `yarn run deploy`
+
+## API Root Lambda
+
+API Root Lambda is the main controller that handles API Request. It's written in NodeJS and uses express for handling routing
