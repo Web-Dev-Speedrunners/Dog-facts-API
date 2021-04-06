@@ -1,0 +1,49 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+jobs:
+  lambda_sanity_check:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: ~/project/api_root_lambda
+          cache-path: ~/project/api_root_lambda/node_modules
+          pkg-manager: yarn
+      - run:
+          working_directory: ~/project/api_root_lambda
+          command: npm run lint
+          name: Lint Checks
+      - run:
+          working_directory: ~/project/api_root_lambda
+          command: npm run test
+          name: Run Tests
+  cdk_sanity_check:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: ~/project/api_root_lambda
+          cache-path: ~/project/cdk/build/api_root_lambda/node_modules
+          pkg-manager: yarn
+          override-ci-command: yarn install --prod --modules-folder ../cdk/build/api_root_lambda/node_modules
+      - node/install-packages:
+          app-dir: ~/project/cdk
+          cache-path: ~/project/cdk/node_modules
+          pkg-manager: yarn
+      - run:
+          working_directory: ~/project/cdk
+          command: npm run lint
+          name: Lint Check
+      - run:
+          working_directory: ~/project/cdk
+          command: npm run build
+          name: Build Check
+
+workflows:
+  lambda_merge_check:
+    jobs:
+      - lambda_sanity_check
+  cdk_checks:
+    jobs:
+      - cdk_sanity_check
