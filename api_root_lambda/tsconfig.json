@@ -24,7 +24,8 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "outDir": "../cdk/build/api_root_lambda"
+    "outDir": "../cdk/build/api_root_lambda",
+    "resolveJsonModule": true,
   },
   "include": [
     "src"
