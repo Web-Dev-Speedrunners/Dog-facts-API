@@ -1,5 +1,11 @@
 # App Backend
 
+[![CircleCI](https://circleci.com/gh/Web-Dev-Speedrunners/Dog-facts-API.svg?style=svg)](https://app.circleci.com/pipelines/github/Web-Dev-Speedrunners/Dog-facts-API)
+
+## Overview
+
+Live: https://evaxn9xqz0.execute-api.us-east-1.amazonaws.com/prod
+
 ## Requirements
 
 - [NodeJS 12](https://github.com/nvm-sh/nvm)
@@ -28,4 +34,9 @@
 #### How to Deploy
 
 1. Navigate to `cdk` directory
-2. Run `yarn run deploy`
+2. **First Deployment Only** Bootstrap your AWS Account: `cdk bootstrap`
+3. Run `yarn run deploy`
+
+## API Root Lambda
+
+API Root Lambda is the main controller that handles API Request. It's written in NodeJS and uses express for handling routing
