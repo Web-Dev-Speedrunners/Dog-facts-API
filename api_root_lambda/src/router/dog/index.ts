@@ -5,6 +5,6 @@ const router = Router();
 
 router
   .route('/')
-  .get(dogRouteHandler)
+  .get(dogRouteHandler);
 
 export default router;

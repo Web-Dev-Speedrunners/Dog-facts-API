@@ -1,5 +1,3 @@
-const randomInt = (n: number) : number => {
-  return Math.floor(Math.random() * n);
-};
+const randomInt = (n: number) : number => (Math.floor(Math.random() * n));
 
 export default randomInt;
